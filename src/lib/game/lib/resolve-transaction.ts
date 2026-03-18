@@ -7,10 +7,8 @@ function checkMutation<I, O, C>(
   context: C,
 ): boolean {
   if (!mutation) return false
-  if (mutation.filter && !mutation.filter(input, context)) {
-    return true
-  }
-  return false
+  if (!mutation.filter) return true
+  return mutation.filter(input, context)
 }
 
 function checkTransaction<I, O, C>(
@@ -29,7 +27,7 @@ function resolveTransaction<I, O, C>(
     onSuccess?: (output: O) => void
   },
 ): O {
-  if (!transaction || checkTransaction(input, transaction)) {
+  if (!transaction || !checkTransaction(input, transaction)) {
     options.onFailure?.(options.fallback)
     return options.fallback
   }

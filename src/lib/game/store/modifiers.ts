@@ -38,7 +38,7 @@ function decrementModifierDurations() {
 
   filterModifiers(
     (modifier) =>
-      modifier.mutation.duration !== undefined &&
+      modifier.mutation.duration === undefined ||
       modifier.mutation.duration > 0,
   )
 }

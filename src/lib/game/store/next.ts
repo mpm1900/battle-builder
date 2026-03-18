@@ -1,4 +1,5 @@
 import { resolveTransaction } from '../lib/resolve-transaction'
+import { validateAction } from '../lib/validate-action'
 import { popAction } from './actions'
 import { getState, setState } from './game'
 import { popTransaction, pushTransactions } from './transactions'
@@ -19,7 +20,9 @@ function next() {
   if (state.triggers.length > 0) {
     console.log('Processing trigger...')
     const trigger = popTrigger()
-    pushTransactions(resolveTransaction(state, trigger, { fallback: [] }))
+    if (validateAction(state, trigger)) {
+      pushTransactions(resolveTransaction(state, trigger, { fallback: [] }))
+    }
 
     return true
   }
@@ -32,7 +35,9 @@ function next() {
   if (state.actions.length > 0) {
     console.log('Processing action...')
     const action = popAction()
-    pushTransactions(resolveTransaction(state, action, { fallback: [] }))
+    if (validateAction(state, action)) {
+      pushTransactions(resolveTransaction(state, action, { fallback: [] }))
+    }
 
     return true
   }

@@ -1,4 +1,5 @@
 import { getLevel } from '../lib/get-level'
+import { updateActors as update } from '../lib/update-actor'
 import type { Actor } from '../types/actor'
 import { setState } from './game'
 
@@ -10,11 +11,9 @@ function pushActors(actors: Array<Actor>) {
 
 function updateActors(
   predicate: (actor: Actor) => boolean,
-  fn: (actor: Actor) => Actor,
+  updater: (actor: Actor) => Partial<Actor>,
 ) {
-  setState((prev) => ({
-    actors: prev.actors.map((actor) => (predicate(actor) ? fn(actor) : actor)),
-  }))
+  setState((prev) => update(prev, predicate, updater))
 }
 
 function addExperience(

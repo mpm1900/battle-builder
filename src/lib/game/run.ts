@@ -21,6 +21,7 @@ pushActions([makeTransaction(kisame.actions[0], context)])
 while (next()) {
   // console.log(getState())
 }
+console.log('done')
 
 pushModifiers([makeTransaction(kisame_modifier, makeContextFromActor(kisame))])
 decrementModifierDurations()
