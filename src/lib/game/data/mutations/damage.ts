@@ -27,7 +27,7 @@ function getDamageAmount(
   sourceActor: ResolvedActor,
   targetActor: ResolvedActor,
   config: Parameters<typeof damage>[0],
-  targetsCount: number,
+  context: Context,
 ) {
   return getDamage({
     sourceActor,
@@ -36,7 +36,7 @@ function getDamageAmount(
     power: config.power,
     natures: config.natures,
     critical: config.critical ? sourceActor.critical : 1,
-    targets: targetsCount > 1 ? TARGETS_MODIFIER : 1,
+    targets: context.targetActorIDs.length > 1 ? TARGETS_MODIFIER : 1,
     other: config.other,
     offset: config.offset,
     random: rand(0.8, 1),
@@ -67,7 +67,7 @@ function damage(config: {
           sourceActor,
           targetActor,
           config,
-          targetActors.length,
+          context,
         )
 
         state = applyDamage(state, targetActor, damageAmount)
@@ -107,7 +107,7 @@ function damageSplit(config: {
           sourceActor,
           targetActor,
           config,
-          targetActors.length,
+          context,
         )
 
         transactions.push(

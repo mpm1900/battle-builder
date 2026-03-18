@@ -62,6 +62,7 @@ type Actor = ActorStats &
     level: number
     experience: number
 
+    natures: Array<Nature>
     innateModifiers: Array<Modifier>
     actions: Array<Action>
   }

@@ -1,6 +1,6 @@
 type Nature = 'fire' | 'wind' | 'lightning' | 'earth' | 'water' | 'yin' | 'yang'
 
-const NATURES = {
+const Natures = {
   fire: ['fire'],
   wind: ['wind'],
   lightning: ['lightning'],
@@ -22,9 +22,9 @@ const NATURES = {
   dust: ['fire', 'earth', 'wind'],
 } as const
 
-type NatureSet = keyof typeof NATURES
+type NatureSet = keyof typeof Natures
 
-const Natures = NATURES as any as Record<NatureSet, Array<Nature>>
+const NATURES = Natures as any as Record<NatureSet, Array<Nature>>
 
 export type { Nature }
-export { Natures }
+export { NATURES }
