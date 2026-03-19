@@ -26,5 +26,5 @@ type NatureSet = keyof typeof Natures
 
 const NATURES = Natures as any as Record<NatureSet, Array<Nature>>
 
-export type { Nature }
+export type { Nature, NatureSet }
 export { NATURES }

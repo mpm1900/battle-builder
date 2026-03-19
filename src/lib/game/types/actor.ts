@@ -2,7 +2,7 @@ import type { Action } from './action'
 import type { Context } from './context'
 import type { Modifier } from './modifier'
 import type { Mutation } from './mutation'
-import type { Nature } from './natures'
+import type { Nature, NatureSet } from './natures'
 
 type ActorAttackStats = {
   ninjutsu: number
@@ -62,7 +62,7 @@ type Actor = ActorStats &
     level: number
     experience: number
 
-    natures: Array<Nature>
+    natures: Array<NatureSet>
     innateModifiers: Array<Modifier>
     actions: Array<Action>
   }

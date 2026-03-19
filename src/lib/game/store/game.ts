@@ -1,8 +1,10 @@
 import { Store } from '@tanstack/store'
 import type { Game } from '../types/game'
+import { nanoid } from 'nanoid'
 
 const game = new Store<Game>({
   turn: null,
+  players: [{ ID: nanoid() }, { ID: nanoid() }],
   actors: [],
   modifiers: [],
 

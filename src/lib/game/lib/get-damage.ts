@@ -1,5 +1,13 @@
 import type { ActorAttackStats, ResolvedActor } from '../types/actor'
-import type { Nature } from '../types/natures'
+import { NATURES, type Nature } from '../types/natures'
+
+function getSTAB(actor: ResolvedActor, natures: Array<Nature>) {
+  console.log(actor.natures, natures)
+  const actorNatures = actor.natures.flatMap((n) => NATURES[n])
+  const matches = natures.filter((n) => actorNatures.includes(n))
+  const stab = 1 + matches.length * 0.25
+  return stab
+}
 
 function getDamageEq(config: {
   attack: number
@@ -8,6 +16,7 @@ function getDamageEq(config: {
   level: number
   power: number
   natures?: number
+  stab?: number
   random?: number
   targets?: number
   other?: number
@@ -20,15 +29,18 @@ function getDamageEq(config: {
     level,
     power,
     natures = 1,
+    stab = 1,
     targets = 1,
     random = 1,
     other = 1,
     offset = 0,
   } = config
+  console.log('stab', stab)
   const level_mod = (2 * level) / 5 + 2
   const pow_ad = (attack / defense) * power
   const term_1 = (level_mod * pow_ad) / 50 + 2
-  const raw = term_1 * critical * targets * natures * random * other + offset
+  const raw =
+    term_1 * critical * targets * natures * stab * random * other + offset
 
   return Math.floor(raw)
 }
@@ -69,6 +81,7 @@ function getDamage({
     power,
     critical,
     natures: naturesMod,
+    stab: getSTAB(sourceActor, natures),
     random,
     targets,
     other,

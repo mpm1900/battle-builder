@@ -56,7 +56,7 @@ const kisame: Actor = {
   accuracy: 1,
   critical: 1.5,
 
-  // Element identity: water specialist, high vitality, lightning vulnerability
+  // Element identity: explicit water + yang specialist, high vitality, lightning vulnerability
   fireDamage: 0.9,
   fireResistance: 1.15,
   windDamage: 0.95,
@@ -67,15 +67,15 @@ const kisame: Actor = {
   earthResistance: 1,
   waterDamage: 1.35,
   waterResistance: 1.3,
-  yinDamage: 1,
-  yinResistance: 1,
-  yangDamage: 1,
-  yangResistance: 1.1,
+  yinDamage: 0.9,
+  yinResistance: 0.95,
+  yangDamage: 1.15,
+  yangResistance: 1.2,
 
   active: true,
   alive: true,
 
-  natures: NATURES.water,
+  natures: ['water', 'yang'],
   innateModifiers: [], //[kisame_modifier],
   actions: [slash, surf],
 }

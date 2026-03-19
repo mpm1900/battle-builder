@@ -12,7 +12,7 @@ function popTrigger() {
 function pushTriggers(triggers: Array<ActionTransaction>) {
   console.log(`Pushing ${triggers.length} triggers(s)`)
   setState((prev) => ({
-    triggers: prev.actions.concat(triggers),
+    triggers: prev.triggers.concat(triggers),
   }))
 }
 

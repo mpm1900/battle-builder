@@ -9,11 +9,10 @@ import { addExperience, pushActors } from './store/actors'
 import { resolveActor } from './lib/resolve-actor'
 import { getHealth } from './lib/get-resource'
 import { decrementModifierDurations, pushModifiers } from './store/modifiers'
-import { getBaseExperience, getExperienceToNextLevel } from './lib/get-level'
 import { getActor } from './lib/get-actors'
 
 const kisameContext = makeContextFromActor(kisame, {
-  targetActorIDs: [itachi.ID],
+  targetActorIDs: [],
 })
 
 const itachiContext = makeContextFromActor(itachi, {
@@ -23,8 +22,8 @@ const itachiContext = makeContextFromActor(itachi, {
 pushActors([kisame, itachi])
 addExperience((a) => a.ID === kisame.ID || a.ID === itachi.ID, 9876)
 pushActions([
-  makeTransaction(kisame.actions[0], kisameContext),
-  makeTransaction(itachi.actions[0], itachiContext),
+  makeTransaction(kisame.actions[1], kisameContext),
+  makeTransaction(itachi.actions[1], itachiContext),
 ])
 
 while (next()) {
@@ -45,8 +44,10 @@ console.log(b.hp + b.stamina + b.ninjutsu + b.genjutsu + b.taijutsu + b.speed)
 
 let actor = resolveActor(getState(), kisame.ID)!
 let itachiActor = resolveActor(getState(), itachi.ID)!
+
 console.log(actor)
 console.log(itachiActor)
 console.log(getHealth(actor))
 console.log(getHealth(itachiActor))
+
 //console.log(getState())

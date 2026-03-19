@@ -3,7 +3,9 @@ import type { Actor } from './actor'
 import type { Context } from './context'
 import type { ModifierTransaction } from './modifier'
 import type { Mutation } from './mutation'
+import type { Player } from './player'
 import type { Transaction } from './transaction'
+import type { Turn } from './turn'
 
 type GameMutation = Mutation<Game, Game, Context>
 type GameTransaction = Transaction<Context, GameMutation>
@@ -14,6 +16,7 @@ type PromptTransaction = ActionTransaction & {
 
 type Game = {
   turn: Turn | null
+  players: Array<Player>
   actors: Array<Actor>
   modifiers: Array<ModifierTransaction>
 

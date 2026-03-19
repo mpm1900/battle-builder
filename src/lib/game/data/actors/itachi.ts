@@ -2,7 +2,6 @@ import { nanoid } from 'nanoid'
 import type { Actor } from '../../types/actor'
 import type { Modifier } from '../../types/modifier'
 import { ember } from '../actions/ember'
-import { NATURES } from '../../types/natures'
 import { slash } from '../actions/slash'
 
 const modifierID = nanoid()
@@ -67,15 +66,15 @@ const itachi: Actor = {
   earthResistance: 1,
   waterDamage: 0.9,
   waterResistance: 0.95,
-  yinDamage: 1.1,
-  yinResistance: 1,
-  yangDamage: 1,
-  yangResistance: 1,
+  yinDamage: 1.35,
+  yinResistance: 1.25,
+  yangDamage: 0.95,
+  yangResistance: 0.9,
 
   active: true,
   alive: true,
 
-  natures: NATURES.fire,
+  natures: ['fire', 'yin'],
   innateModifiers: [], //[itachi_modifier],
   actions: [slash, ember],
 }
