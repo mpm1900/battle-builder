@@ -4,6 +4,7 @@ import type { Modifier } from '../../types/modifier'
 import { slash } from '../actions/slash'
 import { ember } from '../actions/ember'
 import { chidori } from '../actions/chidori'
+import { baseActor } from './builders/base-actor'
 
 const modifierID = nanoid()
 const sasuke_modifier: Modifier = {
@@ -13,71 +14,50 @@ const sasuke_modifier: Modifier = {
     {
       modifierID: modifierID,
       delta: (a) => ({ ...a, speed: a.speed * 1.25 }),
-      filter: (a) => a.ID === sasuke.ID,
+      filter: (a) => a.ID === sasuke_ID,
     },
   ],
   triggers: [],
   duration: 1,
 }
 
-const sasuke: Actor = {
-  ID: nanoid(),
-  playerID: nanoid(),
-  name: 'Sasuke',
-  resolved: false,
+const sasuke_ID = 'Pp6NEFEIffZADbe83uzzN'
+function sasuke(): Actor {
+  return baseActor(
+    { ID: sasuke_ID, player_ID: 'player_ONE', name: 'Sasuke' },
+    {
+      level: 5,
+      experience: 0,
+      action_count: 6,
 
-  level: 5,
-  experience: 0,
+      ninjutsu: 116,
+      taijutsu: 96,
+      genjutsu: 90,
+      speed: 118,
 
-  // Main stats (Pokémon-style controlled spread)
-  ninjutsu: 116,
-  taijutsu: 96,
-  genjutsu: 90,
-  speed: 118,
+      hp: 86,
+      stamina: 94,
 
-  hp: 86,
-  stamina: 94,
+      fire_damage: 1.18,
+      fire_resistance: 1.1,
+      wind_damage: 1,
+      wind_resistance: 0.95,
+      lightning_damage: 1.24,
+      lightning_resistance: 1.2,
+      earth_damage: 0.95,
+      earth_resistance: 1,
+      water_damage: 0.92,
+      water_resistance: 0.9,
+      yin_damage: 1.05,
+      yin_resistance: 1,
+      yang_damage: 1.02,
+      yang_resistance: 0.98,
 
-  hpOffset: 0,
-  staminaOffset: 0,
-
-  maxHp: 1,
-  maxStamina: 1,
-
-  genjutsuStage: 0,
-  ninjutsuStage: 0,
-  taijutsuStage: 0,
-  speedStage: 0,
-  evasionStage: 0,
-  accuracyStage: 0,
-
-  // Utility / combat feel
-  evasion: 0,
-  accuracy: 1,
-  critical: 1.5,
-
-  // Element identity: fire + lightning specialist
-  fireDamage: 1.18,
-  fireResistance: 1.1,
-  windDamage: 1,
-  windResistance: 0.95,
-  lightningDamage: 1.24,
-  lightningResistance: 1.2,
-  earthDamage: 0.95,
-  earthResistance: 1,
-  waterDamage: 0.92,
-  waterResistance: 0.9,
-  yinDamage: 1.05,
-  yinResistance: 1,
-  yangDamage: 1.02,
-  yangResistance: 0.98,
-
-  active: true,
-  alive: true,
-
-  natures: ['fire', 'lightning'],
-  innateModifiers: [], //[sasuke_modifier],
-  actions: [slash, ember, chidori],
+      natures: ['fire', 'lightning'],
+      innate_modifiers: [], //[sasuke_modifier],
+      actions: [slash, ember, chidori],
+    },
+  )
 }
 
 export { sasuke, sasuke_modifier }

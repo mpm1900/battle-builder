@@ -1,7 +1,8 @@
 import { natureNames } from '#/lib/game/data/natures'
-import type { NatureSet, Nature as NatureType } from '#/lib/game/types/natures'
+import type { NatureSet } from '#/lib/game/types/natures'
 import { cva } from 'class-variance-authority'
 import type { ClassValue } from 'class-variance-authority/types'
+import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip'
 
 type t = Record<string, Record<NatureSet, ClassValue>>
 
@@ -26,15 +27,20 @@ function Nature({
   nature,
   className,
   ...props
-}: React.ComponentProps<'div'> & { nature: NatureSet }) {
+}: React.ComponentProps<'span'> & { nature: NatureSet }) {
   return (
-    <div
-      data-role="nature"
-      className={variants({ variant: nature }) + ''}
-      {...props}
-    >
-      {natureNames[nature] ?? nature}
-    </div>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <span
+          data-role="nature"
+          className={variants({ variant: nature }) + ''}
+          {...props}
+        >
+          {natureNames[nature] ?? nature}
+        </span>
+      </TooltipTrigger>
+      <TooltipContent>{nature}</TooltipContent>
+    </Tooltip>
   )
 }
 

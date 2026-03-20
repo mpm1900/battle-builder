@@ -2,7 +2,7 @@ import type { Actor, ActorStagedStats } from '../types/actor'
 
 function mapStagedStat(a: Actor, stat: keyof ActorStagedStats, mod = 2) {
   const base = a[stat]
-  const stage = a[`${stat}Stage`]
+  const stage = a[`${stat}_stage`]
   if (stage === 0) return base
 
   if (stage > 0) return Math.floor(base * ((stage + mod) / mod))

@@ -1,4 +1,9 @@
-import { PRIORITIES, type Actor, type ResolvedActor } from '../types/actor'
+import {
+  PRIORITIES,
+  type Actor,
+  type ResolvedActor,
+  type ResolvedActorBaseStats,
+} from '../types/actor'
 import type { Game } from '../types/game'
 import type { ModifierTransaction } from '../types/modifier'
 import { getActor } from './get-actors'
@@ -24,6 +29,19 @@ const SPECIAL_MUTATIONS: ModifierTransaction['mutation']['mutations'] = [
     modifierID: null,
   },
 ]
+
+function getBaseStats(actor: Actor): ResolvedActorBaseStats {
+  return {
+    base_accuracy: actor.accuracy,
+    base_evasion: actor.evasion,
+    base_genjutsu: actor.genjutsu,
+    base_hp: actor.hp,
+    base_ninjutsu: actor.ninjutsu,
+    base_speed: actor.speed,
+    base_stamina: actor.stamina,
+    base_taijutsu: actor.taijutsu,
+  }
+}
 
 function resolveActor(
   game: Game,
@@ -53,10 +71,12 @@ function resolveActor(
     })
   }, actor)
 
+  console.log(actor)
   return {
     ...resolved,
+    ...getBaseStats(actor),
     resolved: true,
-    appliedModifiers: Array.from(appliedModifiers),
+    applied_modifiers: Array.from(appliedModifiers),
   }
 }
 

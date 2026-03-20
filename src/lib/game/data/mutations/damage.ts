@@ -14,7 +14,7 @@ const TARGETS_MODIFIER = 0.75
 
 function applyDamage(game: Game, target: ResolvedActor, damage: number) {
   return updateActor(game, target.ID, (a) => {
-    const total = a.hpOffset + damage
+    const total = a.hp_offset + damage
     const health = getHealth(target, total)
     return {
       alive: health.alive,

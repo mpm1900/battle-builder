@@ -1,8 +1,11 @@
-type Transaction<C, M> = {
+type TransactionDTO<C> = {
   ID: string
   context: C
-  mutation: M
   priority?: number
 }
 
-export type { Transaction }
+type Transaction<C, M> = TransactionDTO<C> & {
+  mutation: M
+}
+
+export type { Transaction, TransactionDTO }

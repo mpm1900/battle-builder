@@ -18,7 +18,7 @@ function teamAttack<T extends ActionConfig>({
 }: T): PartialAction {
   return {
     targets: {
-      predicate: (actor, context) => actor.playerID !== context.sourcePlayerID,
+      predicate: (actor, context) => actor.player_ID !== context.sourcePlayerID,
       validate: (context) => context.targetActorIDs.length === targetCount,
     },
     delta: (game, context) => {
@@ -27,7 +27,7 @@ function teamAttack<T extends ActionConfig>({
       const targets = getContextTargets(game, context)
       targets.forEach((targetID) => {
         for (let i = 0; i < hitCount; i++) {
-          const playerID = getActor(game, (a) => a.ID === targetID)!.playerID
+          const playerID = getActor(game, (a) => a.ID === targetID)!.player_ID
           const accuracyRoll = makeRoll(accuracy)
           const criticalRoll = makeRoll(critical)
 
@@ -43,7 +43,7 @@ function teamAttack<T extends ActionConfig>({
                 withTargets(
                   context,
                   game.actors
-                    .filter((a) => a.playerID === playerID)
+                    .filter((a) => a.player_ID === playerID)
                     .map((a) => a.ID),
                 ),
               ),

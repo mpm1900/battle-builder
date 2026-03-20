@@ -1,8 +1,8 @@
 import { nanoid } from 'nanoid'
 import type { Actor } from '../../types/actor'
 import type { Modifier } from '../../types/modifier'
-import { NATURES } from '../../types/natures'
 import { slash } from '../actions/slash'
+import { baseActor } from './builders/base-actor'
 
 const modifierID = nanoid()
 const kakuzu_modifier: Modifier = {
@@ -11,72 +11,50 @@ const kakuzu_modifier: Modifier = {
   mutations: [
     {
       modifierID: modifierID,
-      delta: (a) => ({ ...a, earthResistance: a.earthResistance * 1.5 }),
-      filter: (a) => a.ID === kakuzu.ID,
+      delta: (a) => ({ ...a, earthResistance: a.earth_resistance * 1.5 }),
+      filter: (a) => a.ID === kakuzu_ID,
     },
   ],
   triggers: [],
   duration: 1,
 }
 
-const kakuzu: Actor = {
-  ID: nanoid(),
-  playerID: nanoid(),
-  name: 'Kakuzu',
-  resolved: false,
+const kakuzu_ID = 'GqS_BsUgj5HH4hKH8G2eq'
+function kakuzu(): Actor {
+  return baseActor(
+    { ID: kakuzu_ID, player_ID: 'player_ONE', name: 'Kakuzu' },
+    {
+      level: 5,
+      experience: 0,
+      action_count: 6,
 
-  level: 5,
-  experience: 0,
+      ninjutsu: 122,
+      taijutsu: 102,
+      genjutsu: 40,
+      speed: 68,
+      hp: 128,
+      stamina: 134,
 
-  // Main stats (Pokémon-style controlled spread)
-  ninjutsu: 122,
-  taijutsu: 102,
-  genjutsu: 40,
-  speed: 68,
+      fire_damage: 1.05,
+      fire_resistance: 1.05,
+      wind_damage: 1.2,
+      wind_resistance: 1.15,
+      lightning_damage: 1.18,
+      lightning_resistance: 1.1,
+      earth_damage: 1.22,
+      earth_resistance: 1.28,
+      water_damage: 0.95,
+      water_resistance: 0.95,
+      yin_damage: 0.9,
+      yin_resistance: 0.9,
+      yang_damage: 1.1,
+      yang_resistance: 1.2,
 
-  hp: 128,
-  stamina: 134,
-
-  hpOffset: 0,
-  staminaOffset: 0,
-
-  maxHp: 1,
-  maxStamina: 1,
-
-  genjutsuStage: 0,
-  ninjutsuStage: 0,
-  taijutsuStage: 0,
-  speedStage: 0,
-  evasionStage: 0,
-  accuracyStage: 0,
-
-  // Utility / combat feel
-  evasion: 0,
-  accuracy: 1,
-  critical: 1.5,
-
-  // Element identity: multi-heart user with wind/lightning/earth focus
-  fireDamage: 1.05,
-  fireResistance: 1.05,
-  windDamage: 1.2,
-  windResistance: 1.15,
-  lightningDamage: 1.18,
-  lightningResistance: 1.1,
-  earthDamage: 1.22,
-  earthResistance: 1.28,
-  waterDamage: 0.95,
-  waterResistance: 0.95,
-  yinDamage: 0.9,
-  yinResistance: 0.9,
-  yangDamage: 1.1,
-  yangResistance: 1.2,
-
-  active: true,
-  alive: true,
-
-  natures: ['wind', 'earth'],
-  innateModifiers: [], //[kakuzu_modifier],
-  actions: [slash],
+      natures: ['wind', 'earth'],
+      innate_modifiers: [], //[kakuzu_modifier],
+      actions: [slash],
+    },
+  )
 }
 
 export { kakuzu, kakuzu_modifier }

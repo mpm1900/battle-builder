@@ -10,11 +10,11 @@ function getModifiers(
 ) {
   const activeActors = getActors(game, (a) => a.active)
   const actorModifiers = activeActors.flatMap((a) =>
-    a.innateModifiers.map((modifier) =>
+    a.innate_modifiers.map((modifier) =>
       makeTransaction(
         modifier,
         makeContext({
-          sourcePlayerID: a.playerID,
+          sourcePlayerID: a.player_ID,
           sourceActorID: a.ID,
         }),
       ),

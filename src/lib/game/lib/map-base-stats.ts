@@ -1,4 +1,4 @@
-import type { Actor, ActorStats } from '../types/actor'
+import type { Actor, ActorBaseStats } from '../types/actor'
 
 function mapHp(a: Actor): number {
   const base = a.hp
@@ -8,7 +8,7 @@ function mapHp(a: Actor): number {
   return ratio + a.level + 10
 }
 
-function mapStat(a: Actor, stat: keyof ActorStats) {
+function mapStat(a: Actor, stat: keyof ActorBaseStats) {
   const base = a[stat]
   const baseTerm = (base + 15) * 2
   const evTerm = 0

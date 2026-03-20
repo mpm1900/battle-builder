@@ -69,8 +69,8 @@ function getDamage({
   offset?: number
 }) {
   const naturesMod = natures.reduce((mod, nature) => {
-    const sourceStat = sourceActor[`${nature}Damage`]
-    const targetStat = targetActor[`${nature}Resistance`]
+    const sourceStat = sourceActor[`${nature}_damage`]
+    const targetStat = targetActor[`${nature}_resistance`]
     return mod * (sourceStat / targetStat)
   }, 1)
 

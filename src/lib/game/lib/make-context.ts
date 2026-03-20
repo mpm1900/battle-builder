@@ -29,7 +29,7 @@ function makeContextFromActor(
   return makeContext({
     ...rest,
     sourceActorID: actor.ID,
-    sourcePlayerID: actor.playerID,
+    sourcePlayerID: actor.player_ID,
   })
 }
 

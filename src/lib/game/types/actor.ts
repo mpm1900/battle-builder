@@ -1,4 +1,4 @@
-import type { Action } from './action'
+import type { Action, ActionDTO } from './action'
 import type { Context } from './context'
 import type { Modifier } from './modifier'
 import type { Mutation } from './mutation'
@@ -18,32 +18,32 @@ type ActorResources = {
   hp: number
   stamina: number
 }
+type ActorBaseStats = ActorStagedStats & ActorResources
 type ActorMaxResources = {
-  [key in `max${Capitalize<keyof ActorResources>}`]: number
+  [key in `max_${keyof ActorResources}`]: number
 }
 type ActorMaxResourceOffets = {
-  [key in `${keyof ActorResources}Offset`]: number
+  [key in `${keyof ActorResources}_offset`]: number
 }
 
 type ActorNatureDamageStats = {
-  [key in `${Nature}Damage`]: number
+  [key in `${Nature}_damage`]: number
 }
 
 type ActorNatureResistanceStats = {
-  [key in `${Nature}Resistance`]: number
+  [key in `${Nature}_resistance`]: number
 }
 
 type ActorStats = ActorNatureDamageStats &
   ActorNatureResistanceStats &
-  ActorStagedStats &
-  ActorResources &
+  ActorBaseStats &
   ActorMaxResources &
   ActorMaxResourceOffets & {
     critical: number
   }
 
 type ActorStatsStages = {
-  [key in `${keyof ActorStagedStats}Stage`]: number
+  [key in `${keyof ActorStagedStats}_stage`]: number
 }
 
 type ActorState = {
@@ -55,21 +55,34 @@ type Actor = ActorStats &
   ActorStatsStages &
   ActorState & {
     ID: string
-    playerID: string
+    player_ID: string
     name: string
     resolved: false
 
     level: number
     experience: number
+    action_count: number
 
     natures: Array<NatureSet>
-    innateModifiers: Array<Modifier>
+    innate_modifiers: Array<Modifier>
     actions: Array<Action>
   }
 
-type ResolvedActor = Omit<Actor, 'resolved'> & {
-  resolved: true
-  appliedModifiers: Array<string>
+type ActorDTO = Omit<Actor, 'actions' | 'innate_modifiers'> & {
+  actions: Array<ActionDTO>
+}
+
+type ResolvedActorBaseStats = {
+  [key in `base_${keyof ActorBaseStats}`]: number
+}
+type ResolvedActor = Omit<Actor, 'resolved'> &
+  ResolvedActorBaseStats & {
+    resolved: true
+    applied_modifiers: Array<string>
+  }
+
+type ResolvedActorDTO = Omit<ResolvedActor, 'actions' | 'innate_modifiers'> & {
+  actions: Array<ActionDTO>
 }
 
 type ActorMutation = Mutation<Actor, Actor, Context>
@@ -89,10 +102,14 @@ const PRIORITIES = {
 export type {
   ActorAttackStats,
   ActorStagedStats,
+  ActorBaseStats,
   ActorStats,
   ActorState,
   Actor,
+  ActorDTO,
+  ResolvedActorDTO,
   ResolvedActor,
+  ResolvedActorBaseStats,
   ActorMutation,
   ActorResources,
   ActorMaxResourceOffets,

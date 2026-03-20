@@ -3,6 +3,7 @@ import type { Actor } from '../../types/actor'
 import type { Modifier } from '../../types/modifier'
 import { ember } from '../actions/ember'
 import { slash } from '../actions/slash'
+import { baseActor } from './builders/base-actor'
 
 const modifierID = nanoid()
 const itachi_modifier: Modifier = {
@@ -12,71 +13,50 @@ const itachi_modifier: Modifier = {
     {
       modifierID: modifierID,
       delta: (a) => ({ ...a, genjutsu: a.genjutsu * 2 }),
-      filter: (a) => a.ID === itachi.ID,
+      filter: (a) => a.ID === itachi_ID,
     },
   ],
   triggers: [],
   duration: 1,
 }
 
-const itachi: Actor = {
-  ID: nanoid(),
-  playerID: nanoid(),
-  name: 'Itachi',
-  resolved: false,
+const itachi_ID = 'iZbkGV9GUhlxJW4tYGDEQ'
+function itachi(): Actor {
+  return baseActor(
+    { ID: itachi_ID, player_ID: 'player_ONE', name: 'Itachi' },
+    {
+      level: 5,
+      experience: 0,
+      action_count: 6,
 
-  level: 5,
-  experience: 0,
+      ninjutsu: 120,
+      taijutsu: 80,
+      genjutsu: 155,
+      speed: 120,
 
-  // Main stats (Pokémon-style controlled spread)
-  ninjutsu: 120,
-  taijutsu: 80,
-  genjutsu: 155,
-  speed: 120,
+      hp: 55,
+      stamina: 80,
 
-  hp: 55,
-  stamina: 80,
+      fire_damage: 1.3,
+      fire_resistance: 1.15,
+      wind_damage: 1,
+      wind_resistance: 1,
+      lightning_damage: 1.05,
+      lightning_resistance: 1,
+      earth_damage: 0.95,
+      earth_resistance: 1,
+      water_damage: 0.9,
+      water_resistance: 0.95,
+      yin_damage: 1.35,
+      yin_resistance: 1.25,
+      yang_damage: 0.95,
+      yang_resistance: 0.9,
 
-  hpOffset: 0,
-  staminaOffset: 0,
-
-  maxHp: 1,
-  maxStamina: 1,
-
-  genjutsuStage: 0,
-  ninjutsuStage: 0,
-  taijutsuStage: 0,
-  speedStage: 0,
-  evasionStage: 0,
-  accuracyStage: 0,
-
-  // Utility / combat feel
-  evasion: 0,
-  accuracy: 1,
-  critical: 1.5,
-
-  // Element identity: fire + yin specialist, less sustained vitality than bruisers
-  fireDamage: 1.3,
-  fireResistance: 1.15,
-  windDamage: 1,
-  windResistance: 1,
-  lightningDamage: 1.05,
-  lightningResistance: 1,
-  earthDamage: 0.95,
-  earthResistance: 1,
-  waterDamage: 0.9,
-  waterResistance: 0.95,
-  yinDamage: 1.35,
-  yinResistance: 1.25,
-  yangDamage: 0.95,
-  yangResistance: 0.9,
-
-  active: true,
-  alive: true,
-
-  natures: ['fire', 'yin'],
-  innateModifiers: [], //[itachi_modifier],
-  actions: [slash, ember],
+      natures: ['fire', 'yin'],
+      innate_modifiers: [], //[itachi_modifier],
+      actions: [slash, ember],
+    },
+  )
 }
 
-export { itachi, itachi_modifier }
+export { itachi, itachi_ID }

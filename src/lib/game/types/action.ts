@@ -29,6 +29,8 @@ type Action = ActionMutation & {
   }
 }
 
+type ActionDTO = Pick<Action, 'ID' | 'name' | 'config'>
+
 type PartialAction = Omit<Action, 'ID' | 'name' | 'config'>
 type ActionBuilder<T> = (config: T) => PartialAction
 
@@ -36,6 +38,7 @@ type ActionTransaction = Transaction<Context, Action>
 
 export type {
   Action,
+  ActionDTO,
   ActionMutation,
   ActionConfig,
   ActionTransaction,
